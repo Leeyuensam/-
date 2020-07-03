@@ -1,0 +1,5 @@
+test_贷后.csv  对应表`loan_approval_afterloan`
+test_贷中.csv  对应表`loan_approval_behaviorscore`
+test_反欺诈.csv  对应表`loan_approval_anti_fraud_yes`
+test_信用分预测.csv  对应表`loan_approval_creditlevelpredict`
+test_信用分展示.csv 对应表`loan_approval_creditlevel`

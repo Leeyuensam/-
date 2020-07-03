@@ -119,6 +119,7 @@ class GraphService:
         Input: personID
         Output: dict / -1
     '''
+
     def statExData(self, value):
         try:
             i = self.userInfo(value=value)
@@ -136,7 +137,6 @@ class GraphService:
             }
         except:
             return -1
-
 
     '''
         搜索用户两层内的关系网
@@ -171,7 +171,8 @@ class GraphService:
 
     def userPhone(self, value):
         userEntity = self.graph.run(
-            "match (s:`person`) where s.personID= '{}' return s.name, s.personID, s.status, s.flag".format(value)).data()
+            "match (s:`person`) where s.personID= '{}' return s.name, s.personID, s.status, s.flag".format(
+                value)).data()
         if len(userEntity) > 0:
             rt = {}
             rt['user'] = userEntity
@@ -191,7 +192,8 @@ class GraphService:
 
     def userTx(self, value):
         userEntity = self.graph.run(
-            "match (s:`person`) where s.personID= '{}' return s.name, s.personID, s.status, s.flag".format(value)).data()
+            "match (s:`person`) where s.personID= '{}' return s.name, s.personID, s.status, s.flag".format(
+                value)).data()
         if len(userEntity) > 0:
             rt = {}
             rt['user'] = userEntity

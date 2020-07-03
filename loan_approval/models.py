@@ -31,6 +31,11 @@ class Anti_Fraud_Yes(models.Model):
     h = models.CharField(verbose_name='设备高', max_length=500, blank=True, null=True, default=None)
     w = models.CharField(verbose_name='设备宽', max_length=500, blank=True, null=True, default=None)
     ppi = models.CharField(verbose_name='屏幕密度', max_length=500, blank=True, null=True, default=None)
+    status = models.CharField(verbose_name='是否通过反欺诈模型', max_length=500, blank=True, null=True, default=None)
+
+    '''
+    客户ID 客户姓名
+    '''
 
     class Meta:
         verbose_name = '欺诈申请队列'
@@ -111,4 +116,143 @@ class CreditLevel(models.Model):
         verbose_name = '信用等级数据'
         verbose_name_plural = '信用等级数据'
 
+
+'''
+    贷中模型
+'''
+
+
+class BehaviorScore(models.Model):
+    CUST_ID = models.CharField(verbose_name='用户ID', max_length=100, unique=True)
+    Loan_Amount = models.CharField(verbose_name='贷款额', max_length=100, blank=True, null=True,
+                                   default=None)
+    OS = models.CharField(verbose_name='逾期贷款', max_length=100, blank=True, null=True,
+                          default=None)
+    Payment = models.CharField(verbose_name='支付贷款', max_length=100, blank=True, null=True,
+                               default=None)
+    Spend = models.CharField(verbose_name='消费', max_length=100, blank=True, null=True,
+                             default=None)
+    delq = models.CharField(verbose_name='逾期情况', max_length=100, blank=True, null=True,
+                            default=None)
+    maxDelqL3M_Bin_WOE = models.FloatField(verbose_name='maxDelqL3M_Bin_WOE', max_length=100, blank=True, null=True,
+                                           default=None)
+    increaseUrateL6M_Bin_WOE = models.FloatField(verbose_name='increaseUrateL6M_Bin_WOE', max_length=100, blank=True,
+                                                 null=True, default=None)
+    M2FreqL3M_Bin_WOE = models.FloatField(verbose_name='M2FreqL3M_Bin_WOE', max_length=100, blank=True, null=True,
+                                          default=None)
+    avgUrateL1M_Bin_WOE = models.FloatField(verbose_name='avgUrateL1M_Bin_WOE', max_length=100, blank=True, null=True,
+                                            default=None)
+    M0FreqL3M_WOE = models.FloatField(verbose_name='M0FreqL3M_WOE', max_length=100, blank=True, null=True, default=None)
+    avgUrateL3M_Bin_WOE = models.FloatField(verbose_name='avgUrateL3M_Bin_WOE', max_length=100, blank=True, null=True,
+                                            default=None)
+    M1FreqL6M_Bin_WOE = models.FloatField(verbose_name='M1FreqL6M_Bin_WOE', max_length=100, blank=True, null=True,
+                                          default=None)
+    maxDelqL1M_Bin_WOE = models.FloatField(verbose_name='maxDelqL1M_Bin_WOE', max_length=100, blank=True, null=True,
+                                           default=None)
+    avgPayL6M_Bin_WOE = models.FloatField(verbose_name='avgPayL6M_Bin_WOE', max_length=100, blank=True, null=True,
+                                          default=None)
+    M1FreqL12M_Bin_WOE = models.FloatField(verbose_name='M1FreqL12M_Bin_WOE', max_length=100, blank=True, null=True,
+                                           default=None)
+    intercept = models.FloatField(verbose_name='intercept', max_length=100, blank=True, null=True, default=None)
+
+    label = models.FloatField(verbose_name='label', max_length=100, blank=True, null=True, default=None)
+
+    class Meta:
+        verbose_name = '贷款用户行为评分'
+        verbose_name_plural = '贷款用户行为评分'
+
+    def __str__(self):
+        ############# 我没有定义id，需要你看情况加上##############
+        return self.CUST_ID
+
+
+'''
+    贷后模型
+'''
+
+
+class AfterLoan(models.Model):
+    ListingKey = models.CharField(verbose_name='ListingKey', max_length=100, unique=True)
+    CreditGrade = models.CharField(verbose_name='CreditGrade', max_length=100, blank=True, null=True, default=None)
+
+    Term = models.CharField(verbose_name='Term', max_length=100, blank=True, null=True, default=None)
+    EmploymentStatus = models.CharField(verbose_name='EmploymentStatus', max_length=100, blank=True, null=True,
+                                        default=None)
+
+    BorrowerAPR = models.CharField(verbose_name='BorrowerAPR', max_length=100, blank=True, null=True, default=None)
+    BorrowerRate = models.CharField(verbose_name='BorrowerRate', max_length=100, blank=True, null=True, default=None)
+    LenderYield = models.CharField(verbose_name='LenderYield', max_length=100, blank=True, null=True, default=None)
+    ProsperRating_numeric = models.CharField(verbose_name='ProsperRating_numeric', max_length=100, blank=True,
+                                             null=True, default=None)
+    ProsperScore = models.CharField(verbose_name='ProsperScore', max_length=100, blank=True, null=True, default=None)
+    ListingCategory_numeric = models.CharField(verbose_name='ListingCategory_numeric', max_length=100, blank=True,
+                                               null=True, default=None)
+    EmploymentStatusDuration = models.CharField(verbose_name='EmploymentStatusDuration', max_length=100, blank=True,
+                                                null=True, default=None)
+    CurrentCreditLines = models.CharField(verbose_name='CurrentCreditLines', max_length=100, blank=True, null=True,
+                                          default=None)
+    OpenCreditLines = models.CharField(verbose_name='OpenCreditLines', max_length=100, blank=True, null=True,
+                                       default=None)
+    TotalCreditLinespast7years = models.CharField(verbose_name='TotalCreditLinespast7years', max_length=100, blank=True,
+                                                  null=True, default=None)
+    CreditScoreRangeLower = models.CharField(verbose_name='CreditScoreRangeLower', max_length=100, blank=True,
+                                             null=True, default=None)
+    OpenRevolvingAccounts = models.CharField(verbose_name='OpenRevolvingAccounts', max_length=100, blank=True,
+                                             null=True, default=None)
+    OpenRevolvingMonthlyPayment = models.CharField(verbose_name='OpenRevolvingMonthlyPayment', max_length=100,
+                                                   blank=True, null=True, default=None)
+    InquiriesLast6Months = models.CharField(verbose_name='InquiriesLast6Months', max_length=100, blank=True, null=True,
+                                            default=None)
+    TotalInquiries = models.CharField(verbose_name='TotalInquiries', max_length=100, blank=True, null=True,
+                                      default=None)
+    CurrentDelinquencies = models.CharField(verbose_name='CurrentDelinquencies', max_length=100, blank=True, null=True,
+                                            default=None)
+    DelinquenciesLast7Years = models.CharField(verbose_name='DelinquenciesLast7Years', max_length=100, blank=True,
+                                               null=True, default=None)
+    PublicRecordsLast10Years = models.CharField(verbose_name='PublicRecordsLast10Years', max_length=100, blank=True,
+                                                null=True, default=None)
+    PublicRecordsLast12Months = models.CharField(verbose_name='PublicRecordsLast12Months', max_length=100, blank=True,
+                                                 null=True, default=None)
+    BankcardUtilization = models.CharField(verbose_name='BankcardUtilization', max_length=100, blank=True, null=True,
+                                           default=None)
+    TradesNeverDelinquent_percentage = models.CharField(verbose_name='TradesNeverDelinquent_percentage', max_length=100,
+                                                        blank=True, null=True, default=None)
+    TradesOpenedLast6Months = models.CharField(verbose_name='TradesOpenedLast6Months', max_length=100, blank=True,
+                                               null=True, default=None)
+    DebtToIncomeRatio = models.CharField(verbose_name='DebtToIncomeRatio', max_length=100, blank=True, null=True,
+                                         default=None)
+    LoanFirstDefaultedCycleNumber = models.CharField(verbose_name='LoanFirstDefaultedCycleNumber', max_length=100,
+                                                     blank=True, null=True, default=None)
+    LoanMonthsSinceOrigination = models.CharField(verbose_name='LoanMonthsSinceOrigination', max_length=100, blank=True,
+                                                  null=True, default=None)
+    PercentFunded = models.CharField(verbose_name='PercentFunded', max_length=100, blank=True, null=True, default=None)
+    Recommendations = models.CharField(verbose_name='Recommendations', max_length=100, blank=True, null=True,
+                                       default=None)
+    InvestmentFromFriendsCount = models.CharField(verbose_name='InvestmentFromFriendsCount', max_length=100, blank=True,
+                                                  null=True, default=None)
+    Investors = models.CharField(verbose_name='Investors', max_length=100, blank=True, null=True, default=None)
+    CreditGrade_encoded = models.CharField(verbose_name='CreditGrade_encoded', max_length=100, blank=True, null=True,
+                                           default=None)
+    Term_encoded = models.CharField(verbose_name='Term_encoded', max_length=100, blank=True, null=True, default=None)
+    BorrowerState_encoded = models.CharField(verbose_name='BorrowerState_encoded', max_length=100, blank=True,
+                                             null=True, default=None)
+    Occupation_encoded = models.CharField(verbose_name='Occupation_encoded', max_length=100, blank=True, null=True,
+                                          default=None)
+    EmploymentStatus_encoded = models.CharField(verbose_name='EmploymentStatus_encoded', max_length=100, blank=True,
+                                                null=True, default=None)
+    IsBorrowerHomeowner_encoded = models.CharField(verbose_name='IsBorrowerHomeowner_encoded', max_length=100,
+                                                   blank=True, null=True, default=None)
+    CurrentlyInGroup_encoded = models.CharField(verbose_name='CurrentlyInGroup_encoded', max_length=100, blank=True,
+                                                null=True, default=None)
+    IncomeVerifiable_encoded = models.CharField(verbose_name='IncomeVerifiable_encoded', max_length=100, blank=True,
+                                                null=True, default=None)
+    label = models.CharField(verbose_name='label', max_length=100, blank=True, null=True, default=None)
+
+    class Meta:
+        verbose_name = '贷款用户催收评分'
+        verbose_name_plural = '贷款用户催收评分'
+
+    def __str__(self):
+        ############# 我没有定义id，需要你看情况加上##############
+        return self.ListingKey
 # Create your models here.
