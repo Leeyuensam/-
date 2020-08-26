@@ -32,6 +32,7 @@ class Anti_Fraud_Yes(models.Model):
     w = models.CharField(verbose_name='设备宽', max_length=500, blank=True, null=True, default=None)
     ppi = models.CharField(verbose_name='屏幕密度', max_length=500, blank=True, null=True, default=None)
     status = models.CharField(verbose_name='是否通过反欺诈模型', max_length=500, blank=True, null=True, default=None)
+    # 最后加上了status来判断是否最终通过反欺诈
 
     '''
     客户ID 客户姓名
@@ -43,35 +44,6 @@ class Anti_Fraud_Yes(models.Model):
 
     def __str__(self):
         return self.sid
-
-
-class CreditScore(models.Model):
-    loan_ID = models.CharField(max_length=100, verbose_name='贷款ID')
-    gender = models.CharField(verbose_name="性别", max_length=100, blank=True, null=True, default=None)
-    age = models.CharField(verbose_name="年龄", max_length=100, blank=True, null=True, default=None)
-    income = models.CharField(verbose_name="年收入", max_length=100, blank=True, null=True, default=None)
-    income_source = models.CharField(verbose_name='收入来源', max_length=100, blank=True, null=True, default=None)
-    job = models.CharField(verbose_name='工作类别', max_length=100, blank=True, null=True, default=None)
-    job_history = models.CharField(verbose_name="工作年限", max_length=100, blank=True, null=True, default=None)
-    edu = models.CharField(verbose_name='教育水平', max_length=100, blank=True, null=True, default=None)
-    marry = models.CharField(verbose_name='婚姻状况', max_length=100, blank=True, null=True, default=None)
-    is_Email = models.CharField(verbose_name='是否有电子邮箱', max_length=100, blank=True, null=True, default=None)
-    is_WorkTel = models.CharField(verbose_name='是否有工作电话', max_length=100, blank=True, null=True, default=None)
-    is_Tel = models.CharField(verbose_name='是否有手机', max_length=100, blank=True, null=True, default=None)
-    is_Car = models.CharField(verbose_name='是否有车', max_length=100, blank=True, null=True, default=None)
-    Child_Num = models.CharField(verbose_name='孩子数量', max_length=100, blank=True, null=True, default=None)
-    live_addr = models.CharField(verbose_name='居住方式', max_length=100, blank=True, null=True, default=None)
-    Fam_Num = models.CharField(verbose_name='家庭成员数量', max_length=100, blank=True, null=True, default=None)
-    is_Asset = models.CharField(verbose_name="是否有固定资产", max_length=100, blank=True, null=True, default=None)
-    is_Break = models.CharField(verbose_name="是否违约", max_length=100, blank=True, null=True, default=None)
-    credit_score = models.CharField(verbose_name='信用分', max_length=100, blank=True, null=True, default=None)
-
-    class Meta:
-        verbose_name = '贷款额度审核'
-        verbose_name_plural = '贷款额度审核'
-
-    def __str__(self):
-        return self.loan_ID
 
 
 class CreditLevelPredict(models.Model):
@@ -95,6 +67,9 @@ class CreditLevelPredict(models.Model):
         verbose_name = '信用等级预测'
         verbose_name_plural = '信用等级预测'
 
+    def __str__(self):
+        return self.user_id
+
 
 class CreditLevel(models.Model):
     user_id = models.CharField(max_length=100, unique=True)
@@ -111,10 +86,16 @@ class CreditLevel(models.Model):
     Property_Area = models.CharField(max_length=100, blank=True, null=True, default=None)
     Loan_Status = models.CharField(max_length=100, blank=True, null=True, default=None)
     Level = models.CharField(max_length=100, blank=True, null=True, default=None)
+    repaymentPeriod = models.CharField(max_length=100, blank=True, null=True, default=None)
+    status = models.CharField(max_length=100, blank=True, null=True, default=None)
+    # 贷款额度申请状态
 
     class Meta:
         verbose_name = '信用等级数据'
         verbose_name_plural = '信用等级数据'
+
+    def __str__(self):
+        return self.user_id
 
 
 '''
@@ -162,7 +143,6 @@ class BehaviorScore(models.Model):
         verbose_name_plural = '贷款用户行为评分'
 
     def __str__(self):
-        ############# 我没有定义id，需要你看情况加上##############
         return self.CUST_ID
 
 
@@ -253,6 +233,5 @@ class AfterLoan(models.Model):
         verbose_name_plural = '贷款用户催收评分'
 
     def __str__(self):
-        ############# 我没有定义id，需要你看情况加上##############
         return self.ListingKey
 # Create your models here.

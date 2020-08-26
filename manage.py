@@ -5,7 +5,7 @@ import sys
 
 
 def main():
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', '贷款审批.settings')
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'riskManagement.settings')
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
